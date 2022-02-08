@@ -7,7 +7,7 @@ import HomePage from './pages/homepage/homepage.component';
 import ShopPage from './pages/shop/shop.component.jsx';
 import Header from './components/header/header.component.jsx';
 import SignUp from "./pages/sign-in-and-up/SignUp";
-import {auth} from './firebase/connect'
+import {auth, createUserProfileDocument} from './firebase/connect'
 
 
 class App extends React.Component{
@@ -19,8 +19,8 @@ class App extends React.Component{
     }
     unsubscribeFromAuth = null;
     componentDidMount() {
-        this.unsubscribeFromAuth =  auth.onAuthStateChanged(user=>{
-            this.setState({currentUser:user})
+        this.unsubscribeFromAuth =  auth.onAuthStateChanged( async user=>{
+            createUserProfileDocument(user)
             console.log(user)
         })
     }
